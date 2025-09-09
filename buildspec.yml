@@ -26,5 +26,14 @@ phases:
       - echo Writing image definitions file...
       - printf '[{"name":"hello-dot-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 
+            # Add these verification commands:
+      - echo Verifying ECS deployment readiness...
+      - echo "Image URI: $REPOSITORY_URI:$IMAGE_TAG"
+      - echo "Contents of imagedefinitions.json:"
+      - cat imagedefinitions.json
+      - echo Checking ECS service status...
+      - aws ecs describe-services --cluster hello-dot-cluster --services hello-dot-taskDefination-service
+
+
 artifacts:
   files: imagedefinitions.json
